@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>under development</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="index-style.css">
+    
+    <link rel="stylesheet" href="pngtuber-animation.css">
+    <script src="pngtuber-script.js" defer></script>
+    <script src="dialogue.js"></script>
+    <script src="games.js"></script>
+</head>
+<body>
+
+    <!-- purple center area -->
+    <div id="main-container">
+
+    <div id="stage">
+    <img src="static/background3d.png" id="room-bg">
+
+    <div id="poke-badge">
+    <div id="burst-12"></div>
+    <div id="poke-text">
+        <span id="poke-label">poked</span>
+        <span id="poke-count">-</span>
+        <span id="poke-label">times</span>
+        </div>
+    </div>
+
+    <div id="pngtuber-stack" data-pose="neutral">
+        <img src="static/pngtuber/neutral/neutral_back.PNG" class="pngtuber-layer">
+        <img src="static/pngtuber/neutral/neutral_l_iris.PNG" class="pngtuber-layer" id="iris-left">
+        <img src="static/pngtuber/neutral/neutral_r_iris.PNG" class="pngtuber-layer" id="iris-right">
+
+        <img src="static/pngtuber/neutral/neutral_hair1.PNG" class="pngtuber-layer swaying" id="hair-1">
+        <img src="static/pngtuber/neutral/neutral_hair2.PNG" class="pngtuber-layer swaying" id="hair-2">
+        <img src="static/pngtuber/neutral/neutral_hair3.PNG" class="pngtuber-layer swaying" id="hair-3">
+
+        <img src="static/pngtuber/neutral/neutral_l_ear.PNG" class="pngtuber-layer swaying" id="ear-left">
+        <img src="static/pngtuber/neutral/neutral_r_ear.PNG" class="pngtuber-layer swaying" id="ear-right">
+
+        <img src="static/pngtuber/neutral/neutral_body.PNG" class="pngtuber-layer">
+
+        <img src="static/pngtuber/neutral/neutral_mouth.PNG" class="pngtuber-layer">
+        <img src="static/pngtuber/neutral/neutral_glasses.PNG" class="pngtuber-layer">
+        <img src="static/pngtuber/wave/wave_hand.PNG" class="pngtuber-layer" id="wave-hand">
+    </div>
+    <div id="vn-choices"></div>
+    <div id="vn-textbox">
+    <div id="vn-text"></div>
+    <div id="vn-indicator">>>></div>
+    </div>
+    </div> <!-- end stage -->
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+    "entries": ["realEntry1.md",
+                "realEntry2.md",
+                "realEntry3.md"],
+    "structure": ["main.md",
+                "option.md"]
+}
