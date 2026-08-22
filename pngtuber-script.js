@@ -175,11 +175,11 @@ function setTalking(shouldTalk) {
     mouthInterval = setInterval(() => {
         isMouthOpen = !isMouthOpen;
         const mouthType = isMouthOpen ? 'mouth' : 'mouthclosed';
-        mouth.src = `static/pngtuber/${currentPose}/${currentPose}_${mouthType}.png`;
+        mouth.src = `static/pngtuber/${currentPose}/${currentPose}_${mouthType}.PNG`;
     }, 120); // Adjust ms speed to make flapping faster/slower!
     } else {
     // Stop talking: reset flag and lock mouth shut
     isMouthOpen = false;
-    mouth.src = `static/pngtuber/${currentPose}/${currentPose}_mouthclosed.png`;
+    mouth.src = `static/pngtuber/${currentPose}/${currentPose}_mouthclosed.PNG`;
     }
 }
