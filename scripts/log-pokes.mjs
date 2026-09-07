@@ -8,16 +8,13 @@ if (!supabaseUrl || !supabaseKey) {
   throw new Error('SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required.');
 }
 
-const end = new Date();
-end.setUTCHours(0, 0, 0, 0);
-const start = new Date(end);
-start.setUTCDate(start.getUTCDate() - 1);
+const start = new Date();
+start.setUTCHours(0, 0, 0, 0);
 const date = start.toISOString().slice(0, 10);
 
 const query = new URL(`${supabaseUrl}/rest/v1/pokes`);
 query.searchParams.set('select', 'id');
-query.searchParams.append('created_at', `gte.${start.toISOString()}`);
-query.searchParams.append('created_at', `lt.${end.toISOString()}`);
+query.searchParams.set('created_at', `gte.${start.toISOString()}`);
 
 const response = await fetch(query, {
   headers: {
@@ -36,7 +33,7 @@ if (!Array.isArray(pokes)) {
 }
 
 const count = pokes.length;
-console.log(`Checked ${start.toISOString()} through ${end.toISOString()}: ${count} pokes.`);
+console.log(`Pokes for ${date}: ${count}`);
 
 if (count === 0) {
   console.log(`No pokes on ${date}; history unchanged.`);
@@ -50,14 +47,11 @@ if (!Array.isArray(history)) {
 
 const existingEntry = history.find((entry) => entry.date === date);
 if (existingEntry) {
-  if (existingEntry.count !== count) {
-    throw new Error(`History already contains ${date} with count ${existingEntry.count}, but Supabase returned ${count}.`);
-  }
-  console.log(`${date} is already logged.`);
-  process.exit(0);
+  existingEntry.count = count;
+} else {
+  history.push({ date, count });
 }
 
-history.push({ date, count });
 history.sort((first, second) => first.date.localeCompare(second.date));
 await writeFile(historyPath, `${JSON.stringify(history, null, 2)}\n`);
 console.log(`Logged ${count} pokes on ${date}.`);
