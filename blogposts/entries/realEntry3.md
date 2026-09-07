@@ -1,15 +1,9 @@
 ### Description: [Future plans for the website]
 
-So you see the 3d room behind me, right?
+They say Rome wasn't built in a day! 
 
-I want objects in the room to link to other pages. 
+this chat interface was a big goal for making my website really interactive. 
 
-A page to host my art gallery, A page to share music and videos i like...
-
-things like that. 
-
-I also want a comment section, a guesetbook and site buttons. 
-
-The poke counter is hosted on supabase. I want to make many more ways for visitors to "leave a mark"
+I want to keep building out the static html neocities pages too though.
 
 [blogposts\structure\option.md]

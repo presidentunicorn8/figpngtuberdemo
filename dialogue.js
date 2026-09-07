@@ -16,6 +16,16 @@ async function loadDialogue(filePath) {
       const poseMatch = block.match(/<!--\s*(?:pose|post)?:\s*(\w+)\s*-->/i) || block.match(/<!--\s*(\w+)\s*-->/i);
       if (poseMatch) linePose = poseMatch[1].toLowerCase();
 
+      const promptMatch = block.match(/<!--\s*prompt:\s*([\s\S]*?)\s*-->/i);
+      if (promptMatch) {
+        dialogueLines.push({
+          type: 'prompt',
+          prompt: promptMatch[1].trim(),
+          pose: linePose
+        });
+        return;
+      }
+
       const cleanBlock = block.replace(/<!--[\s\S]*?-->/g, '').trim();
 
       // 1. Check for Redirect Link syntax: [path/file.md]
@@ -132,8 +142,65 @@ async function showLine(index) {
     return;
   }
 
+  if (lineData.type === 'prompt') {
+    clearInterval(typeInterval);
+    isTyping = false;
+    if (textEl) textEl.textContent = lineData.prompt;
+    if (typeof setTalking === 'function') setTalking(false);
+    renderPromptInput(lineData.prompt, choicesEl);
+    return;
+  }
+
   // REGULAR TEXT BLOCK
   runTypewriter(lineData.text);
+}
+
+function renderPromptInput(prompt, choicesEl) {
+  if (!choicesEl) return;
+
+  const form = document.createElement('form');
+  form.className = 'vn-prompt-form';
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.maxLength = 200;
+  input.required = true;
+  input.placeholder = 'Type your answer...';
+  input.setAttribute('aria-label', prompt);
+
+  const submit = document.createElement('button');
+  submit.type = 'submit';
+  submit.className = 'vn-choice-btn';
+  submit.textContent = 'Send';
+
+  form.append(input, submit);
+  form.addEventListener('click', (event) => event.stopPropagation());
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const answer = input.value.replace(/[\u0000-\u001F\u007F]/g, '').replace(/\s+/g, ' ').trim();
+    if (!answer) return;
+
+    input.disabled = true;
+    submit.disabled = true;
+    submit.textContent = 'Sending...';
+
+    try {
+      if (typeof recordConversation !== 'function') {
+        throw new Error('Conversation storage is unavailable.');
+      }
+      await recordConversation(prompt, answer);
+      choicesEl.innerHTML = '';
+      advanceDialogue();
+    } catch (error) {
+      console.error('Failed to save conversation:', error);
+      submit.disabled = false;
+      input.disabled = false;
+      submit.textContent = 'Send';
+    }
+  });
+
+  choicesEl.appendChild(form);
+  input.focus();
 }
 // Typewriter Helper
 function runTypewriter(fullText) {

@@ -194,3 +194,23 @@ body {
   transform: translateY(-2px);
   filter: brightness(1.15);
 }
+
+.vn-prompt-form {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.vn-prompt-form input {
+  min-width: 0;
+  flex: 1;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: 'TextBoxPixelFont', monospace;
+  font-size: 0.95rem;
+}
+
+.vn-prompt-form .vn-choice-btn {
+  flex: 0 0 auto;
+}

@@ -41,6 +41,25 @@ async function recordPokeEasy() {
     console.log("poke");
 }
 
+async function recordConversation(prompt, answer) {
+    const cleanPrompt = String(prompt).trim();
+    const cleanAnswer = String(answer)
+        .replace(/[\u0000-\u001F\u007F]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, 200);
+
+    if (!cleanPrompt || !cleanAnswer) {
+        throw new Error('Conversation prompt and answer are required.');
+    }
+
+    const { error } = await supabaseClient
+        .from('conversations')
+        .insert({ prompt: cleanPrompt, answer: cleanAnswer });
+
+    if (error) throw error;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     refreshPokeCount();
 });
