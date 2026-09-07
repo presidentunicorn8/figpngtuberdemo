@@ -23,8 +23,6 @@ const response = await fetch(query, {
   headers: {
     apikey: supabaseKey,
     Authorization: `Bearer ${supabaseKey}`,
-    Prefer: 'count=exact',
-    Range: '0-0',
   },
 });
 
@@ -32,12 +30,13 @@ if (!response.ok) {
   throw new Error(`Supabase returned ${response.status}: ${await response.text()}`);
 }
 
-const contentRange = response.headers.get('content-range');
-const count = Number(contentRange?.split('/')[1]);
-
-if (!Number.isInteger(count)) {
-  throw new Error(`Supabase did not return a usable count: ${contentRange ?? 'missing content-range'}`);
+const pokes = await response.json();
+if (!Array.isArray(pokes)) {
+  throw new Error('Supabase returned an unexpected response.');
 }
+
+const count = pokes.length;
+console.log(`Checked ${start.toISOString()} through ${end.toISOString()}: ${count} pokes.`);
 
 if (count === 0) {
   console.log(`No pokes on ${date}; history unchanged.`);
