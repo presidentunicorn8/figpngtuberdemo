@@ -106,7 +106,7 @@ async function showLine(index) {
         }
       });
     }
-    finalPaths.reverse();
+    finalPaths.reverse(); 
     // 3. Render buttons (now guaranteed to only be valid .md file paths!)
     for (const path of finalPaths) {
       try {
