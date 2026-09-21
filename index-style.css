@@ -1,17 +1,11 @@
 body {
-    margin: 0;
-    padding: 0;
-    background-image: url('static/green_bg.png');
-    background-repeat: repeat;
-    background-position: center;
-    background-color: #2b3823;
-
-    /* Centers purple area */
-    display: flex;
-    justify-content: center;
+    width: 670px;
+    min-width: 670px;
+    max-width: 670px;
+    background-color: #3F314E; /* PURPLE */
     min-height: 100vh;
-    /* Scrolling */
-    overflow-x: auto; 
+    box-sizing: border-box;
+    padding: 20px;
 }
 
 #main-container {
