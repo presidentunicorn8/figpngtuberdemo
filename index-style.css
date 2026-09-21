@@ -6,6 +6,8 @@ body {
     min-height: 670px;
     box-sizing: border-box;
     padding: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 #main-container {
